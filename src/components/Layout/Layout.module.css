@@ -1,0 +1,39 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.header {
+    background-color: #0c0b00;
+    color: #deb522;
+    padding: 0px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    display: flex;
+    gap: 32px;
+}
+
+.navLink {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #fcf7f7;
+}
+
+.navLink:hover {
+    color: #128bb5;
+    text-decoration: underline;
+}
+
+.main {
+    padding: 2rem;
+}
