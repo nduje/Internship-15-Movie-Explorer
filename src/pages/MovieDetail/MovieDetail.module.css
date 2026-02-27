@@ -1,0 +1,59 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4rem;
+    padding: 2rem;
+
+    background-color: #deb522;
+    border: 2px dashed #0c0b00;
+    border-radius: 16px;
+}
+
+.poster_container {
+    flex-shrink: 0;
+}
+
+.poster {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border: 2px dashed #0c0b00;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.info_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.detail {
+    font-size: 1.125rem;
+}
+
+.link_nav {
+    position: absolute;
+    bottom: 5%;
+    right: 2.5%;
+
+    text-decoration: none;
+
+    color: #0c0b00;
+}
+
+.link_nav:hover {
+    color: #128bb5;
+    font-weight: 700;
+    text-decoration: underline;
+}

@@ -1,8 +1,8 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import styles from "./Movies.module.css";
-import MovieCard from "../components/MovieCard/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 
 const Movies = () => {
     const [search, setSearch] = useState("");

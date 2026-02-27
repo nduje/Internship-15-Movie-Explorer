@@ -2,7 +2,7 @@ const movies = [
     {
         id: 1,
         title: "Inception",
-        poster: "src/assets/images/posters/inception.webp",
+        poster: "/src/assets/images/posters/inception.webp",
         rating: "8.8",
         year: "2010",
         genre: "Action, Sci-Fi, Thriller",
@@ -13,7 +13,7 @@ const movies = [
     {
         id: 2,
         title: "Interstellar",
-        poster: "src/assets/images/posters/interstellar.webp",
+        poster: "/src/assets/images/posters/interstellar.webp",
         rating: "8.7",
         year: "2014",
         genre: "Adventure, Drama, Sci-Fi",
@@ -24,7 +24,7 @@ const movies = [
     {
         id: 3,
         title: "The Dark Knight",
-        poster: "src/assets/images/posters/the_dark_knight.webp",
+        poster: "/src/assets/images/posters/the_dark_knight.webp",
         rating: "9.1",
         year: "2008",
         genre: "Action, Crime, Drama",
@@ -35,7 +35,7 @@ const movies = [
     {
         id: 4,
         title: "Pulp Fiction",
-        poster: "src/assets/images/posters/pulp_fiction.webp",
+        poster: "/src/assets/images/posters/pulp_fiction.webp",
         rating: "8.8",
         year: "1994",
         genre: "Crime, Drama",
@@ -46,7 +46,7 @@ const movies = [
     {
         id: 5,
         title: "The Matrix",
-        poster: "src/assets/images/posters/the_matrix.webp",
+        poster: "/src/assets/images/posters/the_matrix.webp",
         rating: "8.7",
         year: "1999",
         genre: "Action, Sci-Fi",
@@ -57,7 +57,7 @@ const movies = [
     {
         id: 6,
         title: "Fight Club",
-        poster: "src/assets/images/posters/fight_club.webp",
+        poster: "/src/assets/images/posters/fight_club.webp",
         rating: "8.8",
         year: "1999",
         genre: "Drama",
@@ -68,7 +68,7 @@ const movies = [
     {
         id: 7,
         title: "Forrest Gump",
-        poster: "src/assets/images/posters/forrest_gump.webp",
+        poster: "/src/assets/images/posters/forrest_gump.webp",
         rating: "8.8",
         year: "1994",
         genre: "Drama, Romance",
@@ -79,7 +79,7 @@ const movies = [
     {
         id: 8,
         title: "The Shawshank Redemption",
-        poster: "src/assets/images/posters/the_shawshank_redemption.webp",
+        poster: "/src/assets/images/posters/the_shawshank_redemption.webp",
         rating: "9.3",
         year: "1994",
         genre: "Drama",
@@ -90,7 +90,7 @@ const movies = [
     {
         id: 9,
         title: "Gladiator",
-        poster: "src/assets/images/posters/gladiator.webp",
+        poster: "/src/assets/images/posters/gladiator.webp",
         rating: "8.5",
         year: "2000",
         genre: "Action, Adventure, Drama",
@@ -101,7 +101,7 @@ const movies = [
     {
         id: 10,
         title: "Titanic",
-        poster: "src/assets/images/posters/titanic.webp",
+        poster: "/src/assets/images/posters/titanic.webp",
         rating: "8.0",
         year: "1997",
         genre: "Drama, Romance",
@@ -112,7 +112,7 @@ const movies = [
     {
         id: 11,
         title: "The Lord of the Rings: The Fellowship of the Ring",
-        poster: "src/assets/images/posters/the_lord_of_the_rings.webp",
+        poster: "/src/assets/images/posters/the_lord_of_the_rings.webp",
         rating: "8.9",
         year: "2001",
         genre: "Adventure, Drama, Fantasy",
@@ -123,7 +123,7 @@ const movies = [
     {
         id: 12,
         title: "The Godfather",
-        poster: "src/assets/images/posters/the_godfather.webp",
+        poster: "/src/assets/images/posters/the_godfather.webp",
         rating: "9.2",
         year: "1972",
         genre: "Crime, Drama",
@@ -134,7 +134,7 @@ const movies = [
     {
         id: 13,
         title: "The Social Network",
-        poster: "src/assets/images/posters/the_social_network.webp",
+        poster: "/src/assets/images/posters/the_social_network.webp",
         rating: "7.8",
         year: "2010",
         genre: "Biography, Drama",
@@ -145,7 +145,7 @@ const movies = [
     {
         id: 14,
         title: "Whiplash",
-        poster: "src/assets/images/posters/whiplash.webp",
+        poster: "/src/assets/images/posters/whiplash.webp",
         rating: "8.5",
         year: "2014",
         genre: "Drama, Music",
@@ -156,7 +156,7 @@ const movies = [
     {
         id: 15,
         title: "The Prestige",
-        poster: "src/assets/images/posters/the_prestige.webp",
+        poster: "/src/assets/images/posters/the_prestige.webp",
         rating: "8.5",
         year: "2006",
         genre: "Drama, Mystery, Sci-Fi",
@@ -167,7 +167,7 @@ const movies = [
     {
         id: 16,
         title: "Parasite",
-        poster: "src/assets/images/posters/parasite.webp",
+        poster: "/src/assets/images/posters/parasite.webp",
         rating: "8.5",
         year: "2019",
         genre: "Drama, Thriller",
@@ -178,7 +178,7 @@ const movies = [
     {
         id: 17,
         title: "Joker",
-        poster: "src/assets/images/posters/joker.webp",
+        poster: "/src/assets/images/posters/joker.webp",
         rating: "8.3",
         year: "2019",
         genre: "Crime, Drama, Thriller",
@@ -189,7 +189,7 @@ const movies = [
     {
         id: 18,
         title: "Avengers: Endgame",
-        poster: "src/assets/images/posters/avengers_endgame.webp",
+        poster: "/src/assets/images/posters/avengers_endgame.webp",
         rating: "8.4",
         year: "2019",
         genre: "Action, Adventure, Drama",
@@ -200,7 +200,7 @@ const movies = [
     {
         id: 19,
         title: "The Silence of the Lambs",
-        poster: "src/assets/images/posters/the_silence_of_the_lambs.webp",
+        poster: "/src/assets/images/posters/the_silence_of_the_lambs.webp",
         rating: "8.6",
         year: "1991",
         genre: "Crime, Drama, Thriller",
@@ -211,7 +211,7 @@ const movies = [
     {
         id: 20,
         title: "Django Unchained",
-        poster: "src/assets/images/posters/django_unchained.webp",
+        poster: "/src/assets/images/posters/django_unchained.webp",
         rating: "8.5",
         year: "2012",
         genre: "Drama, Western",

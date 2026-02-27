@@ -2,8 +2,8 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
 import Home from "./pages/Home.jsx";
-import Movies from "./pages/Movies.jsx";
-import MovieDetail from "./pages/MovieDetail.jsx";
+import Movies from "./pages/Movies/Movies.jsx";
+import MovieDetail from "./pages/MovieDetail/MovieDetail.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import NotFound from "./pages/NotFound.jsx";
 

@@ -37,6 +37,7 @@
     aspect-ratio: 2 / 3;
     object-fit: cover;
 
+    border: 2px dashed #0c0b00;
     border-radius: 8px;
 }
 
