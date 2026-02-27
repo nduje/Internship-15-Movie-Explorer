@@ -1,9 +1,10 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./MovieDetail.module.css";
 
 const MovieDetail = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const { data: movie, loading, error } = useFetch(id ? id : null);
 
@@ -40,9 +41,9 @@ const MovieDetail = () => {
                     <strong>Plot:</strong> {movie.plot}
                 </p>
             </div>
-            <Link to="/movies" className={styles.link_nav}>
+            <div onClick={() => navigate(-1)} className={styles.link_nav}>
                 ← Go back to previous page
-            </Link>
+            </div>
         </section>
     );
 };

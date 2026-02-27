@@ -4,11 +4,6 @@
     flex-direction: column;
 }
 
-.title {
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
 .header {
     background-color: #0c0b00;
     color: #deb522;
@@ -16,6 +11,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.link {
+    text-decoration: none;
+    color: #deb522;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 .nav {

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import styles from "./Error404.module.css";
+import styles from "./NotFound.module.css";
 
-const Error404 = () => {
+const NotFound = () => {
     return (
         <section className={styles.container}>
             <h1 className={styles.title}>
@@ -16,7 +16,7 @@ const Error404 = () => {
                 </h2>
                 <p className={styles.quote_signature}>
                     Gandalf,{" "}
-                    <NavLink to="/" className={styles.quote_link}>
+                    <NavLink to="/movies/11" className={styles.quote_link}>
                         The Lord of the Rings: The Fellowship of the Ring (2001)
                     </NavLink>
                 </p>
@@ -28,4 +28,4 @@ const Error404 = () => {
     );
 };
 
-export default Error404;
+export default NotFound;

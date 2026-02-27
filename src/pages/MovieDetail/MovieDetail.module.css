@@ -53,6 +53,7 @@
 }
 
 .link_nav:hover {
+    cursor: pointer;
     color: #128bb5;
     font-weight: 700;
     text-decoration: underline;

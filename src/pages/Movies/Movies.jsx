@@ -13,8 +13,10 @@ const Movies = () => {
     const { data, loading, error } = useFetch();
 
     useEffect(() => {
-        searchRef.current?.focus();
-    }, []);
+        if (!loading) {
+            searchRef.current?.focus();
+        }
+    }, [loading]);
 
     const visibleMovies = useMemo(() => {
         if (!Array.isArray(data)) return [];
