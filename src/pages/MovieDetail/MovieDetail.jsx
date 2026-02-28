@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./MovieDetail.module.css";
+import toggleFavorite from "../../helpers/toggleFavorite";
 
 const MovieDetail = ({ favorites, setFavorites }) => {
     const id = Number(useParams().id);
@@ -9,13 +10,9 @@ const MovieDetail = ({ favorites, setFavorites }) => {
 
     const { data: movie, loading, error } = useFetch(id ? id : null);
 
-    const handleToggleFavorite = useCallback((id) => {
-        setFavorites((prev) =>
-            prev.includes(id)
-                ? prev.filter((favId) => favId !== id)
-                : [...prev, id],
-        );
-    }, []);
+    const handleToggleFavorite = useCallback(() => {
+        setFavorites((prev) => toggleFavorite(prev, id));
+    }, [setFavorites, id]);
 
     const handleClick = (e) => {
         e.preventDefault();

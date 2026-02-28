@@ -5,7 +5,7 @@ import Layout from "./components/Layout/Layout.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Movies from "./pages/Movies/Movies.jsx";
 import MovieDetail from "./pages/MovieDetail/MovieDetail.jsx";
-import Favorites from "./pages/Favorites.jsx";
+import Favorites from "./pages/Favorites/Favorites.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 
 function App() {

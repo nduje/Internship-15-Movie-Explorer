@@ -1,10 +1,30 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import styles from "./MovieCard.module.css";
+import toggleFavorite from "../../helpers/toggleFavorite";
 
-const MovieCard = ({ id, poster, title, year, rating, favorites }) => {
+const MovieCard = ({
+    id,
+    poster,
+    title,
+    year,
+    rating,
+    favorites,
+    setFavorites,
+    isFavoriteView,
+}) => {
     const isFavorite = useMemo(() => {
         return favorites.includes(id);
     }, [favorites, id]);
+
+    const handleToggleFavorite = useCallback(() => {
+        setFavorites((prev) => toggleFavorite(prev, id));
+    }, [setFavorites, id]);
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleToggleFavorite?.(id);
+    };
 
     const cardClassName = [styles.container, isFavorite ? styles.favorite : ""]
         .filter(Boolean)
@@ -30,6 +50,11 @@ const MovieCard = ({ id, poster, title, year, rating, favorites }) => {
                 alt="favorite"
                 className={starClassName}
             />
+            {isFavoriteView && handleToggleFavorite && (
+                <button className={styles.button} onClick={handleClick}>
+                    {favorites.includes(id) ? "Unfavorite" : "Favorite"}
+                </button>
+            )}
         </article>
     );
 };
