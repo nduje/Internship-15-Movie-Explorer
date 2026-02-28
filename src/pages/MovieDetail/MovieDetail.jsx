@@ -1,19 +1,39 @@
+import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./MovieDetail.module.css";
 
-const MovieDetail = () => {
-    const { id } = useParams();
+const MovieDetail = ({ favorites, setFavorites }) => {
+    const id = Number(useParams().id);
     const navigate = useNavigate();
 
     const { data: movie, loading, error } = useFetch(id ? id : null);
 
+    const handleToggleFavorite = useCallback((id) => {
+        setFavorites((prev) =>
+            prev.includes(id)
+                ? prev.filter((favId) => favId !== id)
+                : [...prev, id],
+        );
+    }, []);
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleToggleFavorite?.(id);
+    };
+
     if (!id) return <p>No movie ID provided.</p>;
-    if (loading) return <p>Loading</p>;
+    if (loading) return <p>Loading...</p>;
     if (error || !movie) return <p>{error}</p>;
 
     return (
         <section className={styles.container}>
+            {handleToggleFavorite && (
+                <button className={styles.button} onClick={handleClick}>
+                    {favorites.includes(id) ? "Unfavorite" : "Favorite"}
+                </button>
+            )}
             <div className={styles.poster_container}>
                 <img
                     src={movie.poster}

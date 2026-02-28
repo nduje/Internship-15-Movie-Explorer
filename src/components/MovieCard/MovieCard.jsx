@@ -1,23 +1,21 @@
+import { useMemo } from "react";
 import styles from "./MovieCard.module.css";
 
-const MovieCard = ({
-    id,
-    poster,
-    title,
-    year,
-    rating,
-    isFavorite,
-    onToggleFavorite,
-}) => {
+const MovieCard = ({ id, poster, title, year, rating, favorites }) => {
+    const isFavorite = useMemo(() => {
+        return favorites.includes(id);
+    }, [favorites, id]);
+
     const cardClassName = [styles.container, isFavorite ? styles.favorite : ""]
         .filter(Boolean)
         .join(" ");
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        onToggleFavorite?.(id);
-    };
+    const starClassName = [
+        styles.favorite_icon,
+        isFavorite ? "" : styles.hidden,
+    ]
+        .filter(Boolean)
+        .join(" ");
 
     return (
         <article className={cardClassName}>
@@ -27,11 +25,11 @@ const MovieCard = ({
                 <p className={styles.year}>({year})</p>
                 <p className={styles.rating}>{rating}/10</p>
             </div>
-            {onToggleFavorite && (
-                <button className={styles.button} onClick={handleClick}>
-                    {isFavorite ? "Unfavorite" : "Favorite"}
-                </button>
-            )}
+            <img
+                src="/src/assets/icons/star.svg"
+                alt="favorite"
+                className={starClassName}
+            />
         </article>
     );
 };

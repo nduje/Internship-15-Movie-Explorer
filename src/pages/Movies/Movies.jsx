@@ -1,13 +1,12 @@
-import { useState, useRef, useMemo, useEffect, useCallback } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Movies.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
 
-const Movies = () => {
+const Movies = ({ favorites }) => {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("id");
-    const [favorites, setFavorites] = useState([]);
     const searchRef = useRef(null);
 
     const { data, loading, error } = useFetch();
@@ -75,14 +74,6 @@ const Movies = () => {
         return result;
     }, [data, search, sortBy]);
 
-    const handleToggleFavorite = useCallback((id) => {
-        setFavorites((prev) =>
-            prev.includes(id)
-                ? prev.filter((favId) => favId !== id)
-                : [...prev, id],
-        );
-    }, []);
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
@@ -128,8 +119,7 @@ const Movies = () => {
                             title={movie.title}
                             year={movie.year}
                             rating={movie.rating}
-                            isFavorite={favorites.includes(movie.id)}
-                            onToggleFavorite={handleToggleFavorite}
+                            favorites={favorites}
                         />
                     </Link>
                 ))}

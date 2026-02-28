@@ -58,3 +58,37 @@
     font-weight: 700;
     text-decoration: underline;
 }
+
+.button {
+    position: absolute;
+    top: 5%;
+    right: 2.5%;
+    background-color: #0c0b00;
+    padding: 0.5rem 1rem;
+    color: #fcf7f7;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px dashed #0c0b00;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+}
+
+.button span:last-child {
+    display: none;
+}
+
+.button:hover {
+    transition: 0.4s;
+    border: 2px dashed #0c0b00;
+    background-color: transparent;
+    color: #0c0b00;
+}
+
+.button:active {
+    background-color: #0c0b00;
+}
