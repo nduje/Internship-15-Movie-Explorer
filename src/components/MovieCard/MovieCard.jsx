@@ -52,7 +52,7 @@ const MovieCard = ({
             />
             {isFavoriteView && handleToggleFavorite && (
                 <button className={styles.button} onClick={handleClick}>
-                    {favorites.includes(id) ? "Unfavorite" : "Favorite"}
+                    Unfavorite
                 </button>
             )}
         </article>

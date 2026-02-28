@@ -23,19 +23,6 @@ const Favorites = ({ favorites, setFavorites }) => {
         return filterMovies(favoriteMovies, search, sortBy);
     }, [data, favorites, search, sortBy]);
 
-    const handleToggleFavorite = useCallback(
-        (id) => {
-            setFavorites((prev) => toggleFavorite(prev, id));
-        },
-        [setFavorites],
-    );
-
-    const handleClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleToggleFavorite?.(id);
-    };
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
@@ -50,27 +37,30 @@ const Favorites = ({ favorites, setFavorites }) => {
                 setSortBy={setSortBy}
                 loading={loading}
             />
-
-            <div className={styles.movies_container}>
-                {visibleMovies.map((movie) => (
-                    <Link
-                        key={movie.id}
-                        to={`/movies/${movie.id}`}
-                        className={styles.movie_link}
-                    >
-                        <MovieCard
-                            id={movie.id}
-                            poster={movie.poster}
-                            title={movie.title}
-                            year={movie.year}
-                            rating={movie.rating}
-                            favorites={favorites}
-                            setFavorites={setFavorites}
-                            isFavoriteView={true}
-                        />
-                    </Link>
-                ))}
-            </div>
+            {visibleMovies.length === 0 ? (
+                <p>No movies found.</p>
+            ) : (
+                <div className={styles.movies_container}>
+                    {visibleMovies.map((movie) => (
+                        <Link
+                            key={movie.id}
+                            to={`/movies/${movie.id}`}
+                            className={styles.movie_link}
+                        >
+                            <MovieCard
+                                id={movie.id}
+                                poster={movie.poster}
+                                title={movie.title}
+                                year={movie.year}
+                                rating={movie.rating}
+                                favorites={favorites}
+                                setFavorites={setFavorites}
+                                isFavoriteView={true}
+                            />
+                        </Link>
+                    ))}
+                </div>
+            )}
         </section>
     );
 };
