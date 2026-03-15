@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Movies.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
@@ -8,16 +8,40 @@ import filterMovies from "../../helpers/filterMovies";
 
 const Movies = () => {
     const [search, setSearch] = useState("");
-    const [sortBy, setSortBy] = useState("id");
-    const [genre, setGenre] = useState("id");
+    const [sortBy, setSortBy] = useState("");
+    const [genre, setGenre] = useState("");
 
-    const { data, loading, error, refetch } = useFetch(
-        "http://localhost:3001/movie",
-    );
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const visibleMovies = useMemo(() => {
-        return filterMovies(data, search, sortBy);
-    }, [data, search, sortBy]);
+    useEffect(() => {
+        const urlSearch = searchParams.get("search") || "";
+        const urlSort = searchParams.get("sortBy") || "";
+        const urlGenre = searchParams.get("genre") || "";
+
+        setSearch(urlSearch);
+        setSortBy(urlSort);
+        setGenre(urlGenre);
+    }, []);
+
+    const url = useMemo(() => {
+        const params = new URLSearchParams();
+        if (search) params.append("search", search);
+        if (sortBy) params.append("sortBy", sortBy);
+        if (genre) params.append("genre", genre);
+
+        return `http://localhost:3001/movie?${params.toString()}`;
+    }, [search, sortBy, genre]);
+
+    useEffect(() => {
+        const params = new URLSearchParams();
+        if (search) params.append("search", search);
+        if (sortBy) params.append("sortBy", sortBy);
+        if (genre) params.append("genre", genre);
+
+        setSearchParams(params);
+    }, [search, sortBy, genre]);
+
+    const { data, loading, error, refetch } = useFetch(url);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -34,11 +58,11 @@ const Movies = () => {
                 setGenre={setGenre}
                 loading={loading}
             />
-            {visibleMovies.length === 0 ? (
+            {data.length === 0 ? (
                 <p>No movies found.</p>
             ) : (
                 <div className={styles.movies_container}>
-                    {visibleMovies.map((movie) => (
+                    {data.map((movie) => (
                         <Link
                             key={movie.id}
                             to={`/movies/${movie.id}`}

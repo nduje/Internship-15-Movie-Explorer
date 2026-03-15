@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Filter.module.css";
 import useFetch from "../../hooks/useFetch";
 
@@ -12,6 +12,7 @@ const Filter = ({
     loading,
 }) => {
     const searchRef = useRef(null);
+    const [localSearch, setLocalSearch] = useState(search);
 
     const {
         data,
@@ -27,14 +28,24 @@ const Filter = ({
         }
     }, [loading]);
 
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setSearch(localSearch);
+        }, 500);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [localSearch, setSearch]);
+
     return (
         <div className={styles.container}>
             <input
                 type="search"
                 ref={searchRef}
                 placeholder="Search movies..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={localSearch}
+                onChange={(e) => setLocalSearch(e.target.value)}
                 className={styles.searchbar}
             />
 
@@ -43,7 +54,7 @@ const Filter = ({
                 onChange={(e) => setSortBy(e.target.value)}
                 className={styles.dropdown}
             >
-                <option value="id">Default</option>
+                <option value="">Default</option>
                 <option value="title-asc">Title (Asc)</option>
                 <option value="title-desc">Title (Desc)</option>
                 <option value="year-asc">Year (Asc)</option>
@@ -60,7 +71,7 @@ const Filter = ({
             >
                 <option value="">All Genres</option>
                 {genres.map((g) => (
-                    <option key={g.id} value={g.name}>
+                    <option key={g.name} value={g.name}>
                         {g.name}
                     </option>
                 ))}
