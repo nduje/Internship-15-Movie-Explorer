@@ -10,7 +10,7 @@ const Movies = ({ favorites }) => {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("id");
 
-    const { data, loading, error } = useFetch();
+    const { data, loading, error } = useFetch("http://localhost:3001/movie");
 
     const visibleMovies = useMemo(() => {
         return filterMovies(data, search, sortBy);

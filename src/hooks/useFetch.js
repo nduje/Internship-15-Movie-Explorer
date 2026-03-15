@@ -1,44 +1,36 @@
 import { useEffect, useState } from "react";
-import movies from "../data/movies";
 
-const useFetch = (id = null) => {
+const useFetch = (url) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = () => {
+        if (!url) return;
+
+        const fetchData = async () => {
             setLoading(true);
+            setError(null);
 
-            setTimeout(() => {
-                try {
-                    if (!id) {
-                        setData(movies);
-                        setError(null);
-                        return;
-                    }
+            try {
+                const response = await fetch(url);
 
-                    const movie = movies.find(
-                        (m) => String(m.id) === String(id),
-                    );
-
-                    if (!movie) {
-                        throw new Error("Movie not found");
-                    }
-
-                    setData(movie);
-                    setError(null);
-                } catch (err) {
-                    setError(`${err}`);
-                    setData(null);
-                } finally {
-                    setLoading(false);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch data");
                 }
-            }, 600);
+
+                const result = await response.json();
+                setData(result);
+            } catch (err) {
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchData();
-    }, [id]);
+    }, [url]);
 
     return { data, loading, error };
 };

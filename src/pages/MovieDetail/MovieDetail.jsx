@@ -8,7 +8,11 @@ const MovieDetail = ({ favorites, setFavorites }) => {
     const id = Number(useParams().id);
     const navigate = useNavigate();
 
-    const { data: movie, loading, error } = useFetch(id ? id : null);
+    const {
+        data: movie,
+        loading,
+        error,
+    } = useFetch(`http://localhost:3001/movie/${id}`);
 
     const handleToggleFavorite = useCallback(() => {
         setFavorites((prev) => toggleFavorite(prev, id));
@@ -46,13 +50,14 @@ const MovieDetail = ({ favorites, setFavorites }) => {
                     <strong>Rating:</strong> {movie.rating}/10
                 </p>
                 <p className={styles.detail}>
-                    <strong>Genre:</strong> {movie.genre}
+                    <strong>Genre:</strong>{" "}
+                    {movie.genres?.map((g) => g.name).join(", ")}
                 </p>
                 <p className={styles.detail}>
                     <strong>Director:</strong> {movie.director}
                 </p>
                 <p className={styles.detail}>
-                    <strong>Actors:</strong> {movie.actors}
+                    <strong>Actors:</strong> {movie.actors?.join(", ")}
                 </p>
                 <p className={styles.detail}>
                     <strong>Plot:</strong> {movie.plot}
