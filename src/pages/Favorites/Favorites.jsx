@@ -5,9 +5,10 @@ import styles from "./Favorites.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import Filter from "../../components/Filter/Filter";
 
-const Favorites = ({ favorites, setFavorites }) => {
+const Favorites = () => {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("id");
+    const [genre, setGenre] = useState("");
 
     const { data, loading, error, refetch } = useFetch(
         "http://localhost:3001/favorite",
@@ -25,6 +26,8 @@ const Favorites = ({ favorites, setFavorites }) => {
                 setSearch={setSearch}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
+                genre={genre}
+                setGenre={setGenre}
                 loading={loading}
             />
             {data.length === 0 ? (
@@ -45,8 +48,7 @@ const Favorites = ({ favorites, setFavorites }) => {
                                     title={movie.title}
                                     year={movie.year}
                                     rating={movie.rating}
-                                    favorites={favorites}
-                                    setFavorites={setFavorites}
+                                    favorite={movie.favorite}
                                     isFavoriteView={true}
                                     refetch={refetch}
                                 />

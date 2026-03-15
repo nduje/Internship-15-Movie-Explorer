@@ -1,8 +1,25 @@
 import { useEffect, useRef } from "react";
 import styles from "./Filter.module.css";
+import useFetch from "../../hooks/useFetch";
 
-const Filter = ({ search, setSearch, sortBy, setSortBy, loading }) => {
+const Filter = ({
+    search,
+    setSearch,
+    sortBy,
+    setSortBy,
+    genre,
+    setGenre,
+    loading,
+}) => {
     const searchRef = useRef(null);
+
+    const {
+        data,
+        loading: genresLoading,
+        error: genresError,
+    } = useFetch("http://localhost:3001/genre");
+
+    const genres = Array.isArray(data) ? data : [];
 
     useEffect(() => {
         if (!loading) {
@@ -33,6 +50,20 @@ const Filter = ({ search, setSearch, sortBy, setSortBy, loading }) => {
                 <option value="year-desc">Year (Desc)</option>
                 <option value="rating-asc">Rating (Asc)</option>
                 <option value="rating-desc">Rating (Desc)</option>
+            </select>
+
+            <select
+                value={genre}
+                onChange={(e) => setGenre(e.target.value)}
+                className={styles.dropdown}
+                disabled={genresLoading || !!genresError}
+            >
+                <option value="">All Genres</option>
+                {genres.map((g) => (
+                    <option key={g.id} value={g.name}>
+                        {g.name}
+                    </option>
+                ))}
             </select>
         </div>
     );

@@ -9,6 +9,7 @@ import filterMovies from "../../helpers/filterMovies";
 const Movies = () => {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("id");
+    const [genre, setGenre] = useState("id");
 
     const { data, loading, error, refetch } = useFetch(
         "http://localhost:3001/movie",
@@ -29,6 +30,8 @@ const Movies = () => {
                 setSearch={setSearch}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
+                genre={genre}
+                setGenre={setGenre}
                 loading={loading}
             />
             {visibleMovies.length === 0 ? (
