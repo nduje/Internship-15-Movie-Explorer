@@ -1,6 +1,4 @@
-import { useCallback, useMemo } from "react";
 import styles from "./MovieCard.module.css";
-import toggleFavorite from "../../helpers/toggleFavorite";
 
 const MovieCard = ({
     id,
@@ -8,22 +6,30 @@ const MovieCard = ({
     title,
     year,
     rating,
-    favorites,
-    setFavorites,
+    favorite,
     isFavoriteView,
+    refetch,
 }) => {
-    const isFavorite = useMemo(() => {
-        return favorites.includes(id);
-    }, [favorites, id]);
+    const isFavorite = !!favorite;
 
-    const handleToggleFavorite = useCallback(() => {
-        setFavorites((prev) => toggleFavorite(prev, id));
-    }, [setFavorites, id]);
-
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        handleToggleFavorite?.(id);
+
+        try {
+            const response = await fetch("http://localhost:3001/favorite", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ movieId: id }),
+            });
+
+            if (!response.ok) throw new Error("Failed to remove favorite");
+
+            refetch();
+        } catch (err) {
+            console.error(err);
+            alert("Could not remove favorite");
+        }
     };
 
     const cardClassName = [styles.container, isFavorite ? styles.favorite : ""]
@@ -50,7 +56,7 @@ const MovieCard = ({
                 alt="favorite"
                 className={starClassName}
             />
-            {isFavoriteView && handleToggleFavorite && (
+            {isFavoriteView && (
                 <button className={styles.button} onClick={handleClick}>
                     Unfavorite
                 </button>

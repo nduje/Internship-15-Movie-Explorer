@@ -1,27 +1,17 @@
-import { useCallback, useState, useMemo } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Favorites.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import Filter from "../../components/Filter/Filter";
-import filterMovies from "../../helpers/filterMovies";
-import toggleFavorite from "../../helpers/toggleFavorite";
 
 const Favorites = ({ favorites, setFavorites }) => {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("id");
 
-    const { data, loading, error } = useFetch();
-
-    const visibleMovies = useMemo(() => {
-        if (!Array.isArray(data)) return [];
-
-        const favoriteMovies = data.filter((movie) =>
-            favorites.includes(movie.id),
-        );
-
-        return filterMovies(favoriteMovies, search, sortBy);
-    }, [data, favorites, search, sortBy]);
+    const { data, loading, error, refetch } = useFetch(
+        "http://localhost:3001/favorite",
+    );
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -37,28 +27,32 @@ const Favorites = ({ favorites, setFavorites }) => {
                 setSortBy={setSortBy}
                 loading={loading}
             />
-            {visibleMovies.length === 0 ? (
+            {data.length === 0 ? (
                 <p>No movies found.</p>
             ) : (
                 <div className={styles.movies_container}>
-                    {visibleMovies.map((movie) => (
-                        <Link
-                            key={movie.id}
-                            to={`/movies/${movie.id}`}
-                            className={styles.movie_link}
-                        >
-                            <MovieCard
-                                id={movie.id}
-                                poster={movie.poster}
-                                title={movie.title}
-                                year={movie.year}
-                                rating={movie.rating}
-                                favorites={favorites}
-                                setFavorites={setFavorites}
-                                isFavoriteView={true}
-                            />
-                        </Link>
-                    ))}
+                    {data.map((fav) => {
+                        const movie = fav.movie;
+                        return (
+                            <Link
+                                key={movie.id}
+                                to={`/movies/${movie.id}`}
+                                className={styles.movie_link}
+                            >
+                                <MovieCard
+                                    id={movie.id}
+                                    poster={movie.poster}
+                                    title={movie.title}
+                                    year={movie.year}
+                                    rating={movie.rating}
+                                    favorites={favorites}
+                                    setFavorites={setFavorites}
+                                    isFavoriteView={true}
+                                    refetch={refetch}
+                                />
+                            </Link>
+                        );
+                    })}
                 </div>
             )}
         </section>

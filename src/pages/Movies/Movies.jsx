@@ -6,11 +6,13 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 import Filter from "../../components/Filter/Filter";
 import filterMovies from "../../helpers/filterMovies";
 
-const Movies = ({ favorites }) => {
+const Movies = () => {
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState("id");
 
-    const { data, loading, error } = useFetch("http://localhost:3001/movie");
+    const { data, loading, error, refetch } = useFetch(
+        "http://localhost:3001/movie",
+    );
 
     const visibleMovies = useMemo(() => {
         return filterMovies(data, search, sortBy);
@@ -45,8 +47,9 @@ const Movies = ({ favorites }) => {
                                 title={movie.title}
                                 year={movie.year}
                                 rating={movie.rating}
-                                favorites={favorites}
+                                favorite={movie.favorite}
                                 isFavoriteView={false}
+                                refetch={refetch}
                             />
                         </Link>
                     ))}
