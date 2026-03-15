@@ -4,7 +4,6 @@ import useFetch from "../../hooks/useFetch";
 import styles from "./Movies.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import Filter from "../../components/Filter/Filter";
-import filterMovies from "../../helpers/filterMovies";
 
 const Movies = () => {
     const [search, setSearch] = useState("");
@@ -29,7 +28,7 @@ const Movies = () => {
         if (sortBy) params.append("sortBy", sortBy);
         if (genre) params.append("genre", genre);
 
-        return `http://localhost:3001/movie?${params.toString()}`;
+        return `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/movie?${params.toString()}`;
     }, [search, sortBy, genre]);
 
     useEffect(() => {

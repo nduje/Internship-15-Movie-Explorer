@@ -17,11 +17,14 @@ const MovieCard = ({
         e.stopPropagation();
 
         try {
-            const response = await fetch("http://localhost:3001/favorite", {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ movieId: id }),
-            });
+            const response = await fetch(
+                `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/favorite`,
+                {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ movieId: id }),
+                },
+            );
 
             if (!response.ok) throw new Error("Failed to remove favorite");
 

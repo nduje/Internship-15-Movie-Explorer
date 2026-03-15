@@ -28,7 +28,7 @@ const Favorites = () => {
         if (sortBy) params.append("sortBy", sortBy);
         if (genre) params.append("genre", genre);
 
-        return `http://localhost:3001/movie/favorites?${params.toString()}`;
+        return `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/movie/favorites?${params.toString()}`;
     }, [search, sortBy, genre]);
 
     useEffect(() => {

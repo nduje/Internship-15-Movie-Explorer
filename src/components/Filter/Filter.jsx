@@ -18,7 +18,9 @@ const Filter = ({
         data,
         loading: genresLoading,
         error: genresError,
-    } = useFetch("http://localhost:3001/genre");
+    } = useFetch(
+        `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/genre`,
+    );
 
     const genres = Array.isArray(data) ? data : [];
 

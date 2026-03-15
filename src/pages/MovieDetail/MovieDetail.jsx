@@ -11,7 +11,9 @@ const MovieDetail = () => {
         loading,
         error,
         refetch,
-    } = useFetch(`http://localhost:3001/movie/${id}`);
+    } = useFetch(
+        `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/movie/${id}`,
+    );
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -20,11 +22,14 @@ const MovieDetail = () => {
         try {
             const method = movie?.favorite ? "DELETE" : "POST";
 
-            const response = await fetch("http://localhost:3001/favorite", {
-                method,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ movieId: id }),
-            });
+            const response = await fetch(
+                `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/favorite`,
+                {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ movieId: id }),
+                },
+            );
 
             if (!response.ok) {
                 throw new Error(
