@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home.jsx";
 import Movies from "./pages/Movies/Movies.jsx";
 import MovieDetail from "./pages/MovieDetail/MovieDetail.jsx";
 import Favorites from "./pages/Favorites/Favorites.jsx";
+import Account from "./pages/Account/Account.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/movies" element={<Movies />}></Route>
                 <Route path="/movies/:id" element={<MovieDetail />}></Route>
                 <Route path="/favorites" element={<Favorites />}></Route>
+                <Route path="/account" element={<Account />}></Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Layout>

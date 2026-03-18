@@ -18,6 +18,9 @@ const Layout = ({ children }) => {
                     <NavLink to="/favorites" className={styles.navLink}>
                         Favorites
                     </NavLink>
+                    <NavLink to="/account" className={styles.navLink}>
+                        Account
+                    </NavLink>
                 </nav>
             </header>
             <main className={styles.main}>{children}</main>

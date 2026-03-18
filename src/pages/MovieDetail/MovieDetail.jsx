@@ -1,10 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./MovieDetail.module.css";
+import * as jwt_decode from "jwt-decode";
 
 const MovieDetail = () => {
     const id = Number(useParams().id);
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("token");
+
+    const isLoggedIn = !!token;
+
+    const currentUserId = token ? jwt_decode(token).id : null;
 
     const {
         data: movie,
@@ -50,13 +57,17 @@ const MovieDetail = () => {
     if (loading) return <p>Loading...</p>;
     if (error || !movie) return <p>{error || "Movie not found"}</p>;
 
-    const isFavorite = !!movie.favorite;
+    const isFavorite = movie.favorite.some(
+        (fav) => fav.userId === currentUserId,
+    );
 
     return (
         <section className={styles.container}>
-            <button className={styles.button} onClick={handleClick}>
-                {isFavorite ? "Unfavorite" : "Favorite"}
-            </button>
+            {isLoggedIn && (
+                <button className={styles.button} onClick={handleClick}>
+                    {isFavorite ? "Unfavorite" : "Favorite"}
+                </button>
+            )}
             <div className={styles.poster_container}>
                 <img
                     src={movie.poster}

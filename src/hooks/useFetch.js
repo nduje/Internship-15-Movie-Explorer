@@ -14,6 +14,10 @@ const useFetch = (url, options = {}) => {
         try {
             const response = await fetch(url, options);
 
+            if (response.status === 401) {
+                throw new Error("Please log in to access this resource");
+            }
+
             if (!response.ok) {
                 throw new Error("Failed to fetch data");
             }

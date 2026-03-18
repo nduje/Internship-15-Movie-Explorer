@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import styles from "./Movies.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import Filter from "../../components/Filter/Filter";
+import * as jwt_decode from "jwt-decode";
 
 const Movies = () => {
     const [search, setSearch] = useState("");
@@ -11,6 +12,10 @@ const Movies = () => {
     const [genre, setGenre] = useState("");
 
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const token = localStorage.getItem("token");
+
+    const currentUserId = token ? jwt_decode(token).id : null;
 
     useEffect(() => {
         const urlSearch = searchParams.get("search") || "";
@@ -73,7 +78,9 @@ const Movies = () => {
                                 title={movie.title}
                                 year={movie.year}
                                 rating={movie.rating}
-                                favorite={movie.favorite}
+                                favorite={movie.favorite.some(
+                                    (fav) => fav.userId === currentUserId,
+                                )}
                                 isFavoriteView={false}
                                 refetch={refetch}
                             />
