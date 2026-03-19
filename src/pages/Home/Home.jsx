@@ -20,6 +20,9 @@ const Home = () => {
                 <Link to="/favorites" className={styles.button}>
                     Favorites
                 </Link>
+                <Link to="/manage" className={styles.button}>
+                    Manage
+                </Link>
                 <Link to="/account" className={styles.button}>
                     Account
                 </Link>

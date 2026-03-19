@@ -1,0 +1,98 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.title {
+    font-size: 3rem;
+}
+
+.button {
+    background-color: #0c0b00;
+    padding: 0.5rem 1rem;
+    color: #fcf7f7;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 2px dashed #0c0b00;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: 0.4s;
+}
+
+button.button {
+    padding: 0.5rem 1rem;
+    font: inherit;
+}
+
+.button span:last-child {
+    display: none;
+}
+
+.button:hover {
+    transition: 0.4s;
+    border: 2px dashed #0c0b00;
+    background-color: #deb522;
+    color: #0c0b00;
+}
+
+.button:active {
+    background-color: #0c0b00;
+}
+
+.add_button {
+    font-size: 1.25rem;
+}
+
+.edit_button:hover {
+    background-color: lightskyblue;
+}
+
+.delete_button:hover {
+    background-color: lightcoral;
+}
+
+.movies_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    width: 100%;
+}
+
+.movie_card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 1rem;
+    border-top: 2px solid #0c0b00;
+    border-bottom: 2px solid #0c0b00;
+    width: 75%;
+}
+
+.movie_title {
+    font-size: 2rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-right: 2rem;
+}
+
+.buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}

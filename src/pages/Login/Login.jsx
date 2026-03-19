@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
 import styles from "./Login.module.css";
 
 const Login = () => {
