@@ -10,6 +10,8 @@ const MovieCard = ({
     isFavoriteView,
     refetch,
 }) => {
+    const token = localStorage.getItem("token");
+
     const isFavorite = !!favorite;
 
     const handleClick = async (e) => {
@@ -21,7 +23,10 @@ const MovieCard = ({
                 `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/favorite`,
                 {
                     method: "DELETE",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                     body: JSON.stringify({ movieId: id }),
                 },
             );

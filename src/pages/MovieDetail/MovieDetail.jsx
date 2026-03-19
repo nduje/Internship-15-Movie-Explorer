@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import styles from "./MovieDetail.module.css";
-import * as jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const MovieDetail = () => {
     const id = Number(useParams().id);
@@ -11,7 +11,7 @@ const MovieDetail = () => {
 
     const isLoggedIn = !!token;
 
-    const currentUserId = token ? jwt_decode(token).id : null;
+    const currentUserId = token ? jwtDecode(token).id : null;
 
     const {
         data: movie,
@@ -27,13 +27,20 @@ const MovieDetail = () => {
         e.stopPropagation();
 
         try {
-            const method = movie?.favorite ? "DELETE" : "POST";
+            const method = movie?.favorite.some(
+                (fav) => fav.userId === currentUserId,
+            )
+                ? "DELETE"
+                : "POST";
 
             const response = await fetch(
                 `http://localhost:${import.meta.env.VITE_API_PORT || 3000}/favorite`,
                 {
                     method,
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                     body: JSON.stringify({ movieId: id }),
                 },
             );

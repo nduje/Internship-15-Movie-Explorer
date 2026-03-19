@@ -12,6 +12,8 @@ const Favorites = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const token = localStorage.getItem("token");
+
     useEffect(() => {
         const urlSearch = searchParams.get("search") || "";
         const urlSort = searchParams.get("sortBy") || "";
@@ -40,7 +42,13 @@ const Favorites = () => {
         setSearchParams(params);
     }, [search, sortBy, genre]);
 
-    const { data, loading, error, refetch } = useFetch(url);
+    const options = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const { data, loading, error, refetch } = useFetch(url, options);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;

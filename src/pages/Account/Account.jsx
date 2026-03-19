@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Account.module.css";
 
 const Account = () => {
+    const navigate = useNavigate();
+
     const isLoggedIn = !!localStorage.getItem("token");
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
+    };
 
     return (
         <section className={styles.container}>
@@ -26,8 +33,13 @@ const Account = () => {
                         </Link>
                     </>
                 ) : (
-                    <button className={styles.button}>Logout</button>
+                    <button onClick={handleLogout} className={styles.button}>
+                        Logout
+                    </button>
                 )}
+            </div>
+            <div onClick={() => navigate(-1)} className={styles.button}>
+                ← Go back to previous page
             </div>
         </section>
     );

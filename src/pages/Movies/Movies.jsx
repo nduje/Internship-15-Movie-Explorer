@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import styles from "./Movies.module.css";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import Filter from "../../components/Filter/Filter";
-import * as jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const Movies = () => {
     const [search, setSearch] = useState("");
@@ -15,7 +15,7 @@ const Movies = () => {
 
     const token = localStorage.getItem("token");
 
-    const currentUserId = token ? jwt_decode(token).id : null;
+    const currentUserId = token ? jwtDecode(token).id : null;
 
     useEffect(() => {
         const urlSearch = searchParams.get("search") || "";

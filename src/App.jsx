@@ -6,6 +6,8 @@ import Movies from "./pages/Movies/Movies.jsx";
 import MovieDetail from "./pages/MovieDetail/MovieDetail.jsx";
 import Favorites from "./pages/Favorites/Favorites.jsx";
 import Account from "./pages/Account/Account.jsx";
+import Login from "./pages/Login/Login.jsx";
+import Register from "./pages/Register/Register.jsx";
 import NotFound from "./pages/NotFound/NotFound.jsx";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
                 <Route path="/movies/:id" element={<MovieDetail />}></Route>
                 <Route path="/favorites" element={<Favorites />}></Route>
                 <Route path="/account" element={<Account />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/register" element={<Register />}></Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </Layout>
