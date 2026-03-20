@@ -7,6 +7,7 @@ import MovieDetail from "./pages/MovieDetail/MovieDetail.jsx";
 import Favorites from "./pages/Favorites/Favorites.jsx";
 import Manage from "./pages/Manage/Manage.jsx";
 import AddMovie from "./pages/AddMovie/AddMovie.jsx";
+import EditMovie from "./pages/EditMovie/EditMovie.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/favorites" element={<Favorites />}></Route>
                 <Route path="/manage" element={<Manage />}></Route>
                 <Route path="/manage/add" element={<AddMovie />}></Route>
+                <Route path="/manage/edit/:id" element={<EditMovie />}></Route>
                 <Route path="/account" element={<Account />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Register />}></Route>

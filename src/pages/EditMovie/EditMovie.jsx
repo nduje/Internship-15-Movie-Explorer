@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "./AddMovie.module.css";
+import { useNavigate, useParams } from "react-router-dom";
+import styles from "./EditMovie.module.css";
 import {
     handleChangeInput,
     addActor,
@@ -13,8 +13,9 @@ import {
     getGenreName,
 } from "../../helpers/submitMovie";
 
-const AddMovie = () => {
+const EditMovie = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
     const token = localStorage.getItem("token");
 
     const [form, setForm] = useState({
@@ -38,7 +39,23 @@ const AddMovie = () => {
             .then((res) => res.json())
             .then((data) => setAllGenres(data))
             .catch((err) => console.error(err));
-    }, []);
+
+        fetch(`http://localhost:3001/movie/${id}`)
+            .then((res) => res.json())
+            .then((movie) => {
+                setForm({
+                    title: movie.title || "",
+                    poster: movie.poster || "",
+                    rating: movie.rating || "",
+                    year: movie.year || "",
+                    director: movie.director || "",
+                    actors: movie.actors || [],
+                    plot: movie.plot || "",
+                    genres: movie.genres?.map((g) => g.id) || [],
+                });
+            })
+            .catch((err) => console.error(err));
+    }, [id]);
 
     const handleChange = (e) => handleChangeInput(e, form, setForm);
 
@@ -95,15 +112,16 @@ const AddMovie = () => {
 
         const payload = {
             ...form,
-            poster: "/src/assets/images/posters/placeholder.webp",
+            poster:
+                form.poster || "/src/assets/images/posters/placeholder.webp",
             rating: Number(form.rating),
             year: Number(form.year),
             actors: form.actors,
         };
 
         try {
-            const res = await fetch("http://localhost:3001/movie", {
-                method: "POST",
+            const res = await fetch(`http://localhost:3001/movie/${id}`, {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -116,12 +134,12 @@ const AddMovie = () => {
                 return;
             }
 
-            if (!res.ok) throw new Error("Failed to create movie");
+            if (!res.ok) throw new Error("Failed to update movie");
 
             navigate("/manage");
         } catch (err) {
             console.error(err);
-            alert("Error creating movie");
+            alert("Error updating movie");
         } finally {
             setLoading(false);
         }
@@ -129,7 +147,7 @@ const AddMovie = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Add Movie</h2>
+            <h2 className={styles.title}>Edit Movie</h2>
 
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.input_container}>
@@ -171,7 +189,6 @@ const AddMovie = () => {
 
                 <div className={styles.input_container}>
                     <label className={styles.label}>Rating</label>
-
                     <div className={styles.stars}>
                         {Array.from({ length: 10 }, (_, i) => {
                             const value = i + 1;
@@ -197,7 +214,6 @@ const AddMovie = () => {
                             );
                         })}
                     </div>
-
                     <input
                         type="number"
                         min="0"
@@ -212,7 +228,6 @@ const AddMovie = () => {
 
                 <div className={styles.input_container}>
                     <label className={styles.label}>Genres</label>
-
                     <div className={styles.genre_input_container}>
                         <select
                             value={selectedGenre}
@@ -226,7 +241,6 @@ const AddMovie = () => {
                                 </option>
                             ))}
                         </select>
-
                         <button
                             type="button"
                             onClick={handleAddGenreClick}
@@ -235,7 +249,6 @@ const AddMovie = () => {
                             Add
                         </button>
                     </div>
-
                     <div className={styles.genres_list}>
                         {form.genres.map((genreId) => (
                             <span
@@ -280,7 +293,6 @@ const AddMovie = () => {
                             Add
                         </button>
                     </div>
-
                     <div className={styles.actors_list}>
                         {form.actors.map((actor, index) => (
                             <span
@@ -313,7 +325,7 @@ const AddMovie = () => {
                         disabled={loading}
                         className={styles.button}
                     >
-                        {loading ? "Adding..." : "Add Movie"}
+                        {loading ? "Saving..." : "Save Changes"}
                     </button>
                     <button
                         type="button"
@@ -328,4 +340,4 @@ const AddMovie = () => {
     );
 };
 
-export default AddMovie;
+export default EditMovie;
