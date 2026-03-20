@@ -22,6 +22,16 @@ The app uses React hooks, at least one custom hook, and React Router for navigat
 - **Favorites** page:
     - List all favorite movies
     - Remove from favorites
+      Manage page:
+- **Manage** page:
+    - Admin view of all movies
+    - Add new movie
+    - Edit existing movie
+    - Delete existing movie
+- **Account** page:
+    - Login
+    - Register
+    - Logout
 - **404 / NotFound** page for invalid routes
 
 ## UI & Behavior
@@ -31,6 +41,18 @@ The app uses React hooks, at least one custom hook, and React Router for navigat
 - Favorites visually marked
 - Debounced search
 - Scroll to top on route change
+
+## Test Users
+
+The following users are pre-created for testing authentication and authorization:
+
+| Role  | Email           | Password    |
+| ----- | --------------- | ----------- |
+| USER  | user@user.com   | password123 |
+| ADMIN | admin@admin.com | password123 |
+
+- **USER** can manage their own favorites
+- **ADMIN** has full access to create, update, and delete movies
 
 ## Setup
 
