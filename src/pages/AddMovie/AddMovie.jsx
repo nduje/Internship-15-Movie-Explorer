@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./AddMovie.module.css";
+import {
+    handleChangeInput,
+    addActor,
+    handleActorKeyDown,
+    removeActorByIndex,
+    addGenre,
+    removeGenreById,
+    handleRatingChange,
+    validateBeforeSubmit,
+    getGenreName,
+} from "../../helpers/submitMovie";
 
 const AddMovie = () => {
     const navigate = useNavigate();
@@ -29,118 +40,57 @@ const AddMovie = () => {
             .catch((err) => console.error(err));
     }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (e) => handleChangeInput(e, form, setForm);
 
+    const handleAddActorClick = () => {
         setForm((prev) => ({
             ...prev,
-            [name]: value,
+            actors: addActor(actorInput, prev.actors),
         }));
-    };
-
-    const handleAddActor = () => {
-        const value = actorInput.trim();
-        if (!value) return;
-
-        if (form.actors.includes(value)) {
-            setActorInput("");
-            return;
-        }
-
-        setForm((prev) => ({
-            ...prev,
-            actors: [...prev.actors, value],
-        }));
-
         setActorInput("");
     };
 
-    const handleActorKeyDown = (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-
-            const value = actorInput.trim();
-            if (!value) return;
-
-            if (form.actors.includes(value)) {
-                setActorInput("");
-                return;
-            }
-
-            setForm((prev) => ({
-                ...prev,
-                actors: [...prev.actors, value],
-            }));
-
-            setActorInput("");
-        }
-    };
-
-    const removeActor = (index) => {
+    const handleActorKey = (e) => {
         setForm((prev) => ({
             ...prev,
-            actors: prev.actors.filter((_, i) => i !== index),
+            actors: handleActorKeyDown(e, actorInput, prev.actors),
         }));
+        if (e.key === "Enter") setActorInput("");
     };
 
-    const handleAddGenre = () => {
-        if (!selectedGenre) return;
-
-        const genreId = Number(selectedGenre);
-
-        if (form.genres.includes(genreId)) {
-            setSelectedGenre("");
-            return;
-        }
-
+    const removeActor = (index) =>
         setForm((prev) => ({
             ...prev,
-            genres: [...prev.genres, genreId],
+            actors: removeActorByIndex(index, prev.actors),
         }));
 
+    const handleAddGenreClick = () => {
+        setForm((prev) => ({
+            ...prev,
+            genres: addGenre(selectedGenre, prev.genres),
+        }));
         setSelectedGenre("");
     };
 
-    const handleRating = (e) => {
-        let val = e.target.value;
-
-        if (val === "") {
-            setForm((prev) => ({ ...prev, rating: "" }));
-            return;
-        }
-
-        val = Math.min(10, Math.max(0, Number(val)));
-
+    const removeGenre = (id) =>
         setForm((prev) => ({
             ...prev,
-            rating: val,
+            genres: removeGenreById(id, prev.genres),
         }));
-    };
 
-    const removeGenre = (id) => {
+    const handleRating = (e) =>
         setForm((prev) => ({
             ...prev,
-            genres: prev.genres.filter((g) => g !== id),
+            rating: handleRatingChange(e.target.value),
         }));
-    };
 
-    const getGenreName = (id) => {
-        return allGenres.find((g) => g.id === id)?.name || "Unknown";
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateBeforeSubmit(form)) return;
+        submitMovie();
+    };
 
-        if (form.genres.length === 0) {
-            alert("You must add at least one genre");
-            return;
-        }
-
-        if (form.actors.length === 0) {
-            alert("You must add at least one actor");
-            return;
-        }
-
+    const submitMovie = async () => {
         setLoading(true);
 
         const payload = {
@@ -184,7 +134,6 @@ const AddMovie = () => {
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.input_container}>
                     <label className={styles.label}>Title</label>
-
                     <input
                         name="title"
                         placeholder="Title"
@@ -255,7 +204,7 @@ const AddMovie = () => {
                         max="10"
                         step="0.1"
                         value={form.rating}
-                        onChange={(e) => handleRating(e)}
+                        onChange={handleRating}
                         placeholder="e.g. 7.5"
                         className={styles.input}
                     />
@@ -280,7 +229,7 @@ const AddMovie = () => {
 
                         <button
                             type="button"
-                            onClick={handleAddGenre}
+                            onClick={handleAddGenreClick}
                             className={styles.button}
                         >
                             Add
@@ -295,7 +244,7 @@ const AddMovie = () => {
                                 title="Click to remove"
                                 className={styles.genre_tag}
                             >
-                                {getGenreName(genreId)} ✕
+                                {getGenreName(genreId, allGenres)} ✕
                             </span>
                         ))}
                     </div>
@@ -303,7 +252,6 @@ const AddMovie = () => {
 
                 <div className={styles.input_container}>
                     <label className={styles.label}>Director</label>
-
                     <input
                         name="director"
                         placeholder="Director"
@@ -321,12 +269,12 @@ const AddMovie = () => {
                             placeholder="Actor"
                             value={actorInput}
                             onChange={(e) => setActorInput(e.target.value)}
-                            onKeyDown={handleActorKeyDown}
+                            onKeyDown={handleActorKey}
                             className={styles.input}
                         />
                         <button
                             type="button"
-                            onClick={handleAddActor}
+                            onClick={handleAddActorClick}
                             className={styles.button}
                         >
                             Add
@@ -349,7 +297,6 @@ const AddMovie = () => {
 
                 <div className={styles.input_container}>
                     <label className={styles.label}>Plot</label>
-
                     <textarea
                         name="plot"
                         placeholder="Plot"
@@ -361,7 +308,6 @@ const AddMovie = () => {
                 </div>
 
                 <div className={styles.button_container}>
-                    {" "}
                     <button
                         type="submit"
                         disabled={loading}
