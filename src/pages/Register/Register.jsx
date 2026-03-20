@@ -47,22 +47,29 @@ const Register = () => {
             </h2>
 
             <form onSubmit={handleSubmit} className={styles.form}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className={styles.input}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className={styles.input}
-                />
+                <div className={styles.input_container}>
+                    <label className={styles.label}>Email</label>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className={styles.input}
+                    />
+                </div>
+
+                <div className={styles.input_container}>
+                    <label className={styles.label}>Password</label>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className={styles.input}
+                    />
+                </div>
             </form>
 
             {error && <p className={styles.error}>{error}</p>}

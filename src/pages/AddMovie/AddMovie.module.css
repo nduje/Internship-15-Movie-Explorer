@@ -1,24 +1,14 @@
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 4rem;
-
-    margin: 2rem;
-    padding: 2rem;
+    gap: 2rem;
 }
 
 .title {
-    color: #0c0b00;
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin: 0;
-}
-
-.highlight {
-    color: #deb522;
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 .form {
@@ -26,23 +16,29 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 384px;
-    gap: 2rem;
+    width: 512px;
+    gap: 2.5rem;
 }
 
 .input_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
 .label {
+    font-size: 1.25rem;
     margin-bottom: 0.5rem;
     margin-left: 0.25rem;
 }
 
-.input {
+.input,
+.dropdown {
     background-color: #0c0b00;
     padding: 0.5rem 1rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #fcf7f7;
     letter-spacing: 2px;
     border-radius: 10px;
@@ -52,7 +48,10 @@
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     transition: 0.4s;
     cursor: pointer;
-    width: 100%;
+}
+
+.input {
+    width: 264px;
 }
 
 .input:hover,
@@ -62,7 +61,59 @@
     color: #0c0b00;
 }
 
-.buttons_container {
+.dropdown:hover {
+    background-color: #deb522;
+    color: #0c0b00;
+}
+
+.dropdown:active {
+    background-color: #0c0b00;
+}
+
+.genre_input_container,
+.actor_input_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.genre_tag,
+.actor_tag {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background: #deb522;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.genres_list,
+.actors_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.plot {
+    height: 128px;
+    resize: none;
+}
+
+.stars {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.star {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.button_container {
     display: flex;
     flex-direction: row;
     justify-content: center;
